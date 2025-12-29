@@ -5,7 +5,7 @@
     border-radius:8px;border:1px solid #e5e5e5;
 ">
     <div style="font-size:48px;opacity:0.8;margin-bottom:20px;">🚧</div>
-
+    
     <h1 style="font-size:2.4rem;font-weight:700;">Under Construction</h1>
 
     <p style="margin-top:20px;color:#666;font-size:1.1rem;">
