@@ -1,0 +1,83 @@
+.course-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    min-height: 3.25in; 
+    gap: 20px;
+}
+
+.course-info {
+    flex: 1;  
+}
+
+.course-info .course-name {
+    font-size: 24px; 
+    margin-bottom: 12px;
+    font-weight: bold;
+}
+
+.course-info p {
+    font-size: 18px;  
+    margin-bottom: 6px;
+}
+
+.course-image {
+    flex: 2;  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.course-image img {
+    width: 400px;        
+    height: 250px;       
+    border-radius: 10px;
+    object-fit: cover;   
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+
+.course-overview {
+    max-width: 700px;
+    margin: 10px auto;
+    padding: 15px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.course-overview h3 {
+    font-size: 20px;
+    margin-bottom: 12px;
+    font-weight: bold;
+}
+
+.course-overview p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+
+.download-btn {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: #4CAF50;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.download-btn:hover {
+    background-color: #45a049;
+}
