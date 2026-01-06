@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="../../public/assets/css/quiz.css">
 
 <h2>Available Quizzes</h2>
-
+<?php include "Turtlers-Academy/core/database.php"?>
 <?php while ($q = mysqli_fetch_assoc($quizzes)) { ?>
 <div class="quiz-card">
     <h3><?= htmlspecialchars($q['title']) ?></h3>

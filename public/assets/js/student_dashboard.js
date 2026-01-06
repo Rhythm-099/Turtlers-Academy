@@ -1,26 +1,32 @@
-window.ajaxLoadAboutMe = function() {
-    const displayArea = document.getElementById('main-display');
-    console.log("About Me clicked");
-
-    fetch('../../controllers/dashboardController.php?action=aboutme')
-        .then(response => response.text())
-        .then(html => {
-            displayArea.innerHTML = html;
-        })
-        .catch(err => console.error("Error loading About Me:", err));
+window.selectTab = function(element) {
+    const tabs = document.querySelectorAll('.tab-btn');
+    tabs.forEach(tab => tab.classList.remove('active'));
+    element.classList.add('active');
 };
 
-window.ajaxLoadDetail = function(courseId) {
-    const displayArea = document.getElementById('main-display');
-    fetch(`../../controllers/dashboardController.php?id=${courseId}`)
-        .then(response => response.text())
+window.ajaxLoadAboutMe = function() {
+    fetch(`/Turtlers-Academy/app/controllers/dashboardController.php?action=aboutme`)
+        .then(res => res.text())
         .then(html => {
-            displayArea.innerHTML = html;
+            document.getElementById('main-display').innerHTML = html;
         });
 };
 
-window.selectTab = function(clickedBtn) {
-    const tabs = document.querySelectorAll('.tab-btn');
-    tabs.forEach(tab => tab.classList.remove('active'));
-    clickedBtn.classList.add('active');
+window.ajaxLoadView = function(action) {
+    fetch(`/Turtlers-Academy/app/controllers/dashboardController.php?action=${action}`)
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById('main-display').innerHTML = html;
+            if (action === 'view_bookmarks' && typeof renderBookmarksPage === 'function') {
+                renderBookmarksPage();
+            }
+        });
+};
+
+window.ajaxLoadDetail = function(id) {
+    fetch(`/Turtlers-Academy/app/controllers/dashboardController.php?id=${id}`)
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById('main-display').innerHTML = html;
+        });
 };

@@ -1,0 +1,42 @@
+.bookmark-container {
+    padding: 20px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.course-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.course-card {
+    background: #fff;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border: 1px solid #eee;
+}
+
+.bookmark-btn {
+    background: #3a6cf4;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.bookmark-btn:hover {
+    background: #2a52be;
+}
+
+#bookmarkList li {
+    background: #f4f7f6;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+}
