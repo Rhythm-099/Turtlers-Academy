@@ -1,7 +1,7 @@
 <?php 
 require_once "../../models/courseModel.php";
 include "../partials/header.php"; 
-// Assuming $db is initialized in your config or model
+
 $courses = getAllCourses($db);
 ?>
 
