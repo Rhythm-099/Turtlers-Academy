@@ -1,4 +1,4 @@
-
+<?php
 $db = mysqli_connect("localhost", "root", "", "turtlers_academy");
 
 if (!$db) {
