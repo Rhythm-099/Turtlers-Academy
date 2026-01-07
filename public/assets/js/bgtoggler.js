@@ -1,4 +1,3 @@
-// background toggle
 let savedTheme = localStorage.getItem("siteTheme");
 
 if (savedTheme) {
