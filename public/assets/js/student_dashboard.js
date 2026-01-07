@@ -1,26 +1,23 @@
-window.ajaxLoadAboutMe = function() {
-    const displayArea = document.getElementById('main-display');
-    console.log("About Me clicked");
-
-    fetch('../../controllers/dashboardController.php?action=aboutme')
-        .then(response => response.text())
-        .then(html => {
-            displayArea.innerHTML = html;
-        })
-        .catch(err => console.error("Error loading About Me:", err));
-};
-
-window.ajaxLoadDetail = function(courseId) {
-    const displayArea = document.getElementById('main-display');
-    fetch(`../../controllers/dashboardController.php?id=${courseId}`)
-        .then(response => response.text())
-        .then(html => {
-            displayArea.innerHTML = html;
-        });
-};
-
-window.selectTab = function(clickedBtn) {
+function selectTab(element) {
     const tabs = document.querySelectorAll('.tab-btn');
     tabs.forEach(tab => tab.classList.remove('active'));
-    clickedBtn.classList.add('active');
-};
+    element.classList.add('active');
+}
+async function ajaxLoadAboutMe() {
+    const res = await fetch(`/Turtlers-Academy/app/controllers/dashboardController.php?action=aboutme`);
+    const html = await res.text();
+    document.getElementById('main-display').innerHTML = html;
+}
+async function ajaxLoadView(action) {
+    const res = await fetch(`/Turtlers-Academy/app/controllers/dashboardController.php?action=${action}`);
+    const html = await res.text();
+    document.getElementById('main-display').innerHTML = html;
+    if (action === 'view_bookmarks' && typeof renderBookmarksPage === 'function') {
+        renderBookmarksPage();
+    }
+}
+async function ajaxLoadDetail(id) {
+    const res = await fetch(`/Turtlers-Academy/app/controllers/dashboardController.php?id=${id}`);
+    const html = await res.text();
+    document.getElementById('main-display').innerHTML = html;
+}
