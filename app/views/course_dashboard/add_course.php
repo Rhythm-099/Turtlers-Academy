@@ -42,6 +42,6 @@ include "../partials/header.php";
 </html>
 
 <?php 
-// Link the footer partial
+
 include '../partials/footer.php'; 
 ?>

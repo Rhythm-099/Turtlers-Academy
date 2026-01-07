@@ -1,14 +1,13 @@
 <?php 
-// Use __DIR__ to find the model file accurately
+
 require_once __DIR__ . "/../../models/courseModel.php";
 include "../partials/header.php"; 
 
-// Get the ID from URL and fetch the specific course data
+ 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $course = getCourseById($db, $id);
     
-    // If the course doesn't exist, stop the error here
     if (!$course) {
         die("Error: Course not found in database.");
     }
@@ -56,6 +55,6 @@ if (isset($_GET['id'])) {
 </body>
 </html>
 <?php 
-// Link the footer partial
+
 include '../partials/footer.php'; 
 ?>
