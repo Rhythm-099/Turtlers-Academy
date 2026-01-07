@@ -1,8 +1,10 @@
 <?php
 
 $host = "localhost";
+$host = "localhost";
 $user = "root";
 $pass = "";
+$db = "turtlers_academy";
 $db = "turtlers_academy";
 
 $conn = mysqli_connect($host, $user, $pass, $db);

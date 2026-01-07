@@ -1,31 +1,34 @@
 // Navigation
-window.ajaxTutor = function(action) {
+async function ajaxTutor(action) {
     const displayArea = document.getElementById('main-display');
-    fetch(`/Turtlers-Academy/app/controllers/TutorController.php?action=${action}`)
-        .then(response => response.text())
-        .then(html => {
-            displayArea.innerHTML = html;
-        });
-};
+    const res = await fetch(`/Turtlers-Academy/app/controllers/TutorController.php?action=${action}`);
+    const html = await res.text();
+    displayArea.innerHTML = html;
+}
 
 // File Upload (Stops page reload)
-window.submitUpload = function(e) {
+async function submitUpload(e) {
     e.preventDefault();
     const form = document.getElementById('uploadForm');
     const statusDiv = document.getElementById('status');
     const formData = new FormData(form);
+
     statusDiv.innerHTML = "Processing...";
-    fetch('/Turtlers-Academy/app/controllers/TutorController.php?action=process_upload', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.text())
-    .then(data => { statusDiv.innerHTML = data; })
-    .catch(err => console.error(err));
-};
+
+    try {
+        const res = await fetch('/Turtlers-Academy/app/controllers/TutorController.php?action=process_upload', {
+            method: 'POST',
+            body: formData
+        });
+        const data = await res.text();
+        statusDiv.innerHTML = data;
+    } catch (err) {
+        console.error(err);
+    }
+}
 
 // Search: Courses
-window.filterCourses = function() {
+function filterCourses() {
     let input = document.getElementById('courseSearch').value.toLowerCase();
     let cards = document.getElementsByClassName('course-card');
     let noResults = document.getElementById('noResultsMessage');
@@ -41,10 +44,10 @@ window.filterCourses = function() {
         }
     }
     noResults.style.display = (visibleCount === 0) ? "block" : "none";
-};
+}
 
 // Search: Students
-window.filterStudents = function() {
+function filterStudents() {
     let input = document.getElementById('studentSearch').value.toLowerCase();
     let rows = document.getElementsByClassName('student-row');
     let noResults = document.getElementById('noStudentResults');
@@ -60,4 +63,4 @@ window.filterStudents = function() {
         }
     }
     noResults.style.display = (visibleCount === 0) ? "block" : "none";
-};
+}

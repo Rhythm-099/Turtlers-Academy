@@ -1,28 +1,74 @@
 <?php
 // --- 1. DATA (Associative Arrays) ---
+require_once __DIR__ . '/../../core/database.php';
+require_once __DIR__ . '/../models/tutorModel.php';
+require_once __DIR__ . '/../models/courseModel.php';
+require_once __DIR__ . '/../models/resourceModel.php';
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Simulate Session for Tutor (For now using Dr. Smith as default if not set)
+// In a real app, login would set $_SESSION['image'], etc.
+$tutorName = $_SESSION['tutor_name'] ?? "Dr. Smith";
+
+// --- 1. DATA (From DB) ---
+$tutorData = getTutorProfile($conn, $tutorName);
+
+// Fallback if not found
+if (!$tutorData) {
+    $tutorData = [
+        "name" => $tutorName,
+        "institution" => "Turtlers Academy",
+        "image" => "/Turtlers-Academy/public/assets/images/tutor.png",
+        "id" => 0
+    ];
+}
+
 $tutorProfile = [
-    "name" => "Dr. Smith",
-    "institution" => "Turtlers Academy of Tech",
-    "image" => "/Turtlers-Academy/public/assets/images/tutor.png"
+    "name" => $tutorData['name'],
+    "institution" => $tutorData['institution'],
+    "image" => $tutorData['image']
 ];
 
-$allStudents = [
-    ["id" => 1, "name" => "Nazat", "email" => "nazat@example.com", "course" => "Web Technologies"],
-    ["id" => 2, "name" => "Rahim", "email" => "rahim@example.com", "course" => "Web Technologies"],
-    ["id" => 3, "name" => "Karim", "email" => "karim@example.com", "course" => "Database Systems"]
-];
+// Get Tutor's Course
+$courseRow = getCourseByTutor($conn, $tutorProfile['name']);
 
 $tutorCourse = [
-    "title" => "Web Technologies",
-    "code" => "WEB101",
-    "enrolled" => ["Nazat", "Rahim"]
+    "title" => "No Course Assigned",
+    "code" => "N/A",
+    "enrolled" => []
 ];
 
-$allCourses = [
-    ["title" => "Web Technologies", "tutor" => "Dr. Smith", "image" => "/Turtlers-Academy/public/assets/images/web.jpg"],
-    ["title" => "Database Systems", "tutor" => "Prof. Jane", "image" => "/Turtlers-Academy/public/assets/images/db.jpg"],
-    ["title" => "Computer Graphics", "tutor" => "Dr. Brown", "image" => "/Turtlers-Academy/public/assets/images/graphics.jpg"]
-];
+$allStudents = [];
+
+if ($courseRow) {
+    $tutorCourse['title'] = $courseRow['course_name'];
+    $tutorCourse['code'] = $courseRow['course_code']; // Assuming course_code column exists
+
+    // Get students
+    $studentsDB = getEnrolledStudentsForCourse($conn, $courseRow['id']);
+
+    // Format for View Students tab
+    $allStudents = $studentsDB; // structure matches {id, name, email, course}
+
+    // Format list for Your Course tab
+    foreach ($studentsDB as $s) {
+        $tutorCourse['enrolled'][] = $s['name'];
+    }
+}
+
+// Get All Courses for Library
+$dbCourses = getAllCourses($conn);
+$allCourses = [];
+foreach ($dbCourses as $c) {
+    $allCourses[] = [
+        "title" => $c['course_name'],
+        "tutor" => $c['instructor_name'],
+        "image" => $c['course_image']
+    ];
+}
 
 // --- 2. AJAX ROUTING ---
 if (isset($_GET['action'])) {
@@ -30,19 +76,23 @@ if (isset($_GET['action'])) {
 
     // Action: List Students (With Search Bar)
     if ($action === 'view_students') {
-        echo "<h3>Enrolled Students</h3>";
+        echo "<h3>Find Student</h3>";
+
+        // Fetch ALL students for this global list
+        $globalStudents = getAllStudentsWithCourses($conn);
+
         echo "
         <div style='margin-bottom: 20px;'>
             <input type='text' id='studentSearch' onkeyup='filterStudents()' placeholder='Search student by name...' 
                    style='width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;'>
         </div>
-        <div id='noStudentResults' style='display:none; text-align:center; padding: 20px; color: #888;'>No students found.</div>";
+        <div id='noStudentResults' style='display:none; text-align:center; padding: 20px; color: #888;'>No students found matching your search.</div>";
 
         echo "<table border='1' id='studentTable' style='width:100%; border-collapse:collapse; margin-top:10px;'>
                 <tr style='background:#f4f7f6;'>
                     <th style='padding:12px;'>ID</th><th style='padding:12px;'>Name</th><th style='padding:12px;'>Course</th>
                 </tr>";
-        foreach ($allStudents as $s) {
+        foreach ($globalStudents as $s) {
             echo "<tr class='student-row'>
                     <td style='padding:10px; text-align:center;'>{$s['id']}</td>
                     <td class='s-name' style='padding:10px;'>{$s['name']}</td>
@@ -58,7 +108,9 @@ if (isset($_GET['action'])) {
         echo "<h3>Manage: {$tutorCourse['title']}</h3>
               <p>Course Code: <b>{$tutorCourse['code']}</b></p>
               <h4>Enrolled Students:</h4><ul>";
-        foreach ($tutorCourse['enrolled'] as $student) { echo "<li>$student</li>"; }
+        foreach ($tutorCourse['enrolled'] as $student) {
+            echo "<li>$student</li>";
+        }
         echo "</ul>";
         exit;
     }
@@ -75,29 +127,133 @@ if (isset($_GET['action'])) {
 
     // Action: Resource Upload Form
     if ($action === 'upload_resource') {
+        // Fetch existing resources for this tutor
+        // Using $tutorData['id'] assuming it was set earlier from getTutorProfile
+        // But getTutorProfile returns id? Yes.
+        $tutorId = $tutorData['id'];
+        $myResources = getResourcesByTutor($conn, $tutorId);
+
         echo "
         <div class='upload-container' style='background:white; padding:30px; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.05);'>
             <h3>Upload Course Resources</h3>
             <p style='color:#666; margin-bottom:20px;'>Accepted formats: .pdf, .docx, .pptx</p>
             <form id='uploadForm' onsubmit='submitUpload(event)'>
+                <input type='text' name='title' placeholder='Resource Title' required style='display:block; width:100%; padding:10px; margin-bottom:15px; border:1px solid #ddd; border-radius:6px;'>
                 <input type='file' name='resource_file' required style='display:block; margin-bottom:20px;'>
                 <button type='submit' style='background:#3a6cf4; color:white; border:none; padding:12px 25px; border-radius:8px; cursor:pointer; font-weight:600;'>Upload File</button>
             </form>
             <div id='status' style='margin-top:20px; font-weight:600;'></div>
-        </div>";
+        </div>
+        
+        <h3 style='margin-top:40px;'>My Uploaded Resources</h3>
+        <table style='width:100%; border-collapse:collapse; margin-top:15px;'>
+            <tr style='background:#f4f7f6; text-align:left;'>
+                <th style='padding:10px;'>Title</th>
+                <th style='padding:10px;'>Date</th>
+                <th style='padding:10px;'>Action</th>
+            </tr>";
+
+        if (empty($myResources)) {
+            echo "<tr><td colspan='3' style='padding:15px; text-align:center; color:#888;'>No resources uploaded yet.</td></tr>";
+        } else {
+            foreach ($myResources as $r) {
+                echo "<tr>
+                        <td style='padding:10px;'>{$r['title']}</td>
+                        <td style='padding:10px;'>{$r['uploaded_at']}</td>
+                        <td style='padding:10px;'>
+                            <button onclick='deleteResource({$r['id']})' style='background:#e74c3c; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;'>Delete</button>
+                        </td>
+                      </tr>";
+            }
+        }
+        echo "</table>
+        
+        <script>
+        function deleteResource(id) {
+            if(confirm('Are you sure you want to delete this resource?')) {
+                fetch('../../controllers/TutorController.php?action=delete_resource&id=' + id)
+                .then(r => r.text())
+                .then(msg => {
+                    alert(msg);
+                    ajaxTutor('upload_resource'); // Reload view
+                });
+            }
+        }
+        </script>
+        ";
         exit;
     }
 
-    // Action: File Validation
+    // Action: File Processing
     if ($action === 'process_upload') {
-        if (isset($_FILES['resource_file'])) {
+        if (isset($_FILES['resource_file']) && isset($_POST['title'])) {
             $fileName = $_FILES['resource_file']['name'];
             $fileExt = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
             $allowed = ['pdf', 'docx', 'pptx'];
+
             if (!in_array($fileExt, $allowed)) {
                 echo "<span style='color:#e74c3c;'>Error: Invalid format. Only PDF, DOCX, and PPTX allowed.</span>";
             } else {
-                echo "<span style='color:#2ecc71;'>Success: '{$fileName}' validated.</span>";
+                // Upload logic
+                $targetDir = __DIR__ . "/../../public/assets/uploads/resources/";
+                if (!file_exists($targetDir)) {
+                    mkdir($targetDir, 0777, true);
+                }
+
+                $newFileName = time() . '_' . preg_replace("/[^a-zA-Z0-9.]/", "_", $fileName);
+                $targetFile = $targetDir . $newFileName;
+                $dbPath = "/Turtlers-Academy/public/assets/uploads/resources/" . $newFileName;
+
+                if (move_uploaded_file($_FILES['resource_file']['tmp_name'], $targetFile)) {
+                    // Save to DB
+                    $tutorId = intval($tutorData['id']);
+
+                    if ($tutorId <= 0) {
+                        echo "<span style='color:#e74c3c;'>Error: Cannot upload. Tutor Profile not found in database.<br>";
+                        echo "Debug: Searching for '{$tutorName}'. Result ID: {$tutorId}.<br>";
+                        echo "Please ensure you have run 'database/instructors_to_users.sql'.</span>";
+                    } else {
+                        // Get course_id from current course
+                        $courseId = 0;
+                        if ($courseRow) {
+                            $courseId = $courseRow['id'];
+                        }
+
+                        $result = addResource($conn, $tutorId, $courseId, $_POST['title'], $dbPath);
+                        if ($result === true) {
+                            echo "<span style='color:#2ecc71;'>Success: Resource uploaded successfully.</span>";
+                        } else {
+                            echo "<span style='color:#e74c3c;'>Error: Database insert failed. Detail: $result</span>";
+                        }
+                    }
+                } else {
+                    echo "<span style='color:#e74c3c;'>Error: File upload failed. Check permissions.</span>";
+                }
+            }
+        }
+        exit;
+    }
+
+    // Action: Delete Resource
+    if ($action === 'delete_resource') {
+        if (isset($_GET['id'])) {
+            $id = intval($_GET['id']);
+            $filePath = deleteResource($conn, $id);
+            if ($filePath) {
+                // Delete actual file
+                $fullPath = __DIR__ . "/../../.." . $filePath; // $filePath starts with /Turtlers-Academy... need to map to relative
+                // Or better construct from doc root or strict path
+                // filePath: /Turtlers-Academy/public/assets/uploads/resources/xxx.pdf
+                // Current dir: app/controllers
+                // Root: c:/xampp/htdocs/Turtlers-Academy
+                // We can try to use $_SERVER['DOCUMENT_ROOT'] . $filePath
+                $sysPath = $_SERVER['DOCUMENT_ROOT'] . $filePath;
+                if (file_exists($sysPath)) {
+                    unlink($sysPath);
+                }
+                echo "Resource deleted.";
+            } else {
+                echo "Error deleting resource.";
             }
         }
         exit;

@@ -66,7 +66,6 @@ if ($action === 'comment' && $_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
     } else {
-        // Insert failed
         if (isset($_POST['ajax'])) {
             $err = mysqli_error($conn);
             echo json_encode([
