@@ -5,16 +5,17 @@ include __DIR__ . "/../partials/header.php";
 
 $courses = getAllCourses($db);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Upload Lesson</title>
-    <link rel="stylesheet" href="/Project/Turtlers-Academy/public/assets/css/upload_lesson.css">
+   <link rel="stylesheet" href="/Project/Turtlers-Academy/public/assets/css/upload_lesson.css">
 </head>
 <body>
 
-<div class="main-content">
+<div class="form-container">
     <h2>Upload New Lesson</h2>
 
     <form action="../../controllers/LessonControllers.php" method="POST" enctype="multipart/form-data">

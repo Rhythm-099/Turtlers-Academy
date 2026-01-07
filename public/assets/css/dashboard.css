@@ -1,14 +1,12 @@
-/* dashboard.css */
-
 .header-group {
     width: 100%;
     max-width: 700px;
-    margin: 0px auto 20px auto; /* Centered with top margin */
+    margin: 0px auto 20px auto;
     display: flex;
     justify-content: space-between; 
     align-items: center;
     padding-bottom: 10px;
-    border-bottom: 3px solid #006400; /* Darkgreen Line */
+    border-bottom: 3px solid #006400; 
 }
 
 .header-group h1 {
@@ -19,7 +17,7 @@
 
 .btn-add {
     background-color: #006400;
-    color: white !important; /* Ensure text is white */
+    color: white !important; 
     padding: 10px 20px;
     text-decoration: none;
     border-radius: 6px;
@@ -33,7 +31,7 @@
 .table-container {
     width: 100%;
     max-width: 700px;
-    margin: 0 auto; /* Centered */
+    margin: 0 auto; 
     background: white;
     padding: 15px;
     border-radius: 10px;
