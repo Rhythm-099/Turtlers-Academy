@@ -1,4 +1,5 @@
-<div class="popup" id="successPopup">
+<div class="popup show" id="successPopup">
+
     <div class="popup-content">
         <h2>Enrollment Successful</h2>
         <p>You are now enrolled in</p>

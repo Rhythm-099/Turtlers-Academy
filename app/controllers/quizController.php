@@ -1,20 +1,24 @@
 <?php
-require_once "../models/quizModel.php";
+//session_start(); // ensure session is available
+require_once __DIR__ . "/../models/quizModel.php";
 
+// Show all quizzes
 function quizList() {
     $quizzes = getQuizzes();
-    include "../views/quiz/quizlist.php";
+    include __DIR__ . "/../views/quiz/quizlist.php";
 }
 
-function takeQuiz($id) {
-    $id = intval($id);
-    if ($id <= 0) die("Invalid quiz ID");
+// Take a quiz
+function takeQuiz($quiz_id) {
+    $quiz_id = intval($quiz_id);
+    if ($quiz_id <= 0) die("Invalid quiz ID");
 
-    $questions = getQuestions($id);
-    include "../views/quiz/quiztake.php";
+    $questions = getQuestions($quiz_id);
+    include __DIR__ . "/../views/quiz/quiztake.php";
 }
 
+// Show leaderboard
 function leaderboard() {
     $leaders = getLeaderboard();
-    include "../views/quiz/quizleaderboard.php";
+    include __DIR__ . "/../views/quiz/quizleaderboard.php";
 }

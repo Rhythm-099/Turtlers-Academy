@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="../../public/assets/css/quiz.css">
+<link rel="stylesheet" href="assets/css/quiz.css">
 
 <h2>Leaderboard</h2>
 

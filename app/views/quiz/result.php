@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Quiz Results</title>
-    <link rel="stylesheet" href="/public/assets/css/quizresult.css">
+    <title>Quiz Results</title>
+    <link rel="stylesheet" href="assets/css/result.css">
+    <script src="/public/assets/js/result.js" defer></script>
 </head>
 <body>
 
@@ -14,7 +15,7 @@
     <?php else: ?>
         <table>
             <tr>
-                <th>Quiz Title</th>
+                <th>Quiz</th>
                 <th>Score</th>
                 <th>Total</th>
                 <th>Date</th>
@@ -31,7 +32,7 @@
         </table>
     <?php endif; ?>
 
-    <a href="/public/dashboard.php" class="back-btn">Back to Dashboard</a>
+    <button onclick="goBack()">Back to Dashboard</button>
 </div>
 
 </body>

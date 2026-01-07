@@ -1,28 +1,20 @@
 <?php
 session_start();
-require_once "../app/models/quizModel.php"; 
+require_once "../app/controllers/quizController.php";
 
-
-if (!isset($_SESSION['user_id'])) {
-    echo "You must be logged in to take quizzes.";
-    exit;
-}
+$user_id = $_SESSION['user_id'] ?? 0;
 
 $action = $_GET['action'] ?? 'list';
 $quiz_id = intval($_GET['id'] ?? 0);
 
+// Route actions via controller functions
 if ($action === 'list') {
-    $quizzes = getQuizzes(); 
-    include "../app/views/quiz/quizlist.php";
-
+    quizList();
 } elseif ($action === 'take' && $quiz_id > 0) {
-    $questions = getQuestions($quiz_id);
-    include "../app/views/quiz/quiztake.php";
-
+    takeQuiz($quiz_id);
+    echo $quiz_id;
 } elseif ($action === 'leaderboard') {
-    $leaders = getLeaderboard();
-    include "../app/views/quiz/quizleaderboard.php";
-
+    leaderboard();
 } else {
     echo "Invalid action!";
 }

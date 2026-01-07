@@ -1,4 +1,7 @@
 <?php
+// courseModel.php
+// Database queries for courses
+
 function getAllCourses($conn){
     $res = mysqli_query($conn, "SELECT * FROM courses");
     $courses = [];
@@ -27,4 +30,3 @@ function isUserEnrolled($conn, $user_id, $course_id){
     $res = mysqli_query($conn, "SELECT * FROM enrollments WHERE user_id=$user_id AND course_id=$course_id");
     return mysqli_num_rows($res) > 0;
 }
-?>

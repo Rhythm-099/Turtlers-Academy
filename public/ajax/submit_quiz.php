@@ -1,42 +1,52 @@
 <?php
 session_start();
-require_once "../../core/database.php";
-require_once "../../app/models/quiz.php";
+require_once "../../app/models/quizModel.php";
 
-header("Content-Type: application/json");
+echo json_encode([
+    'debug' => true,
+    'quiz_id' => $_POST['quiz_id'] ?? 'NOT SET',
+    'answers_raw' => $_POST['answers'] ?? 'NOT SET'
+]);
+exit;
 
-if(!isset($_SESSION['user_id'])){
-    echo json_encode(["status"=>"auth"]);
+
+header('Content-Type: application/json');
+
+if(!isset($_SESSION['user_id'])) {
+    echo json_encode(['status'=>'auth']);
     exit;
 }
 
-$quiz_id = intval($_POST['quiz_id']);
-$answers = json_decode($_POST['answers'], true);
 $user_id = $_SESSION['user_id'];
+$quiz_id = intval($_POST['id'] ?? 0);
+$answers = json_decode($_POST['answers'] ?? '{}', true);
 
-if($quiz_id<=0 || empty($answers)){
-    echo json_encode(["status"=>"invalid"]);
+if(!$quiz_id || !$answers) {
+    echo json_encode(['status'=>'error']);
     exit;
 }
 
+// Fetch correct answers
 $questions = getQuestions($quiz_id);
-$score=0;
+$total = count($questions);
+$score = 0;
 
 foreach($questions as $q){
-    $qid = $q['question_id'];
-    if(isset($answers[$qid]) && $answers[$qid]===$q['correct']){
+    $qid = $q['id'];  
+    if(isset($answers[$qid]) && $answers[$qid] === $q['correct']) {
         $score++;
     }
 }
 
-$total = count($questions);
-$percentage = ($score/$total)*100;
 
-saveAttempt($user_id,$quiz_id,$score,$total,$percentage);
+$percentage = round(($score/$total)*100, 2);
+
+// Save attempt
+saveAttempt($user_id, $quiz_id, $score, $total, $percentage);
 
 echo json_encode([
-    "status"=>"ok",
-    "score"=>$score,
-    "total"=>$total,
-    "percentage"=>$percentage
+    'status'=>'ok',
+    'score'=>$score,
+    'total'=>$total,
+    'percentage'=>$percentage
 ]);

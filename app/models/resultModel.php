@@ -1,11 +1,15 @@
 <?php
 require_once __DIR__ . '/../../core/database.php';
 
-function getStudentQuizResults($user_id)
+function getQuizResultsByStudent($user_id)
 {
     global $conn;
 
-    $sql = "SELECT qr.*, q.title 
+    $sql = "SELECT 
+                qr.score,
+                qr.total,
+                qr.attempted_at,
+                q.title
             FROM quiz_results qr
             JOIN quizzes q ON qr.quiz_id = q.id
             WHERE qr.user_id = ?
@@ -15,6 +19,5 @@ function getStudentQuizResults($user_id)
     mysqli_stmt_bind_param($stmt, "i", $user_id);
     mysqli_stmt_execute($stmt);
 
-    $result = mysqli_stmt_get_result($stmt);
-    return $result;
+    return mysqli_stmt_get_result($stmt);
 }

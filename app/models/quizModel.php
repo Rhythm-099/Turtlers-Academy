@@ -1,5 +1,5 @@
 <?php
-require_once "../../core/database.php";
+require_once __DIR__ . "/../../core/database.php";
 
 // Get all quizzes
 function getQuizzes() {
@@ -12,7 +12,7 @@ function getQuizzes() {
 function getQuestions($quiz_id) {
     global $conn;
     $quiz_id = intval($quiz_id);
-    $res = mysqli_query($conn, "SELECT * FROM questions WHERE quiz_id=$quiz_id");
+    $res = mysqli_query($conn, "SELECT * FROM questions WHERE quiz_id=$quiz_id"); // keep this if 'questions' table uses quiz_id
     return mysqli_fetch_all($res, MYSQLI_ASSOC);
 }
 
@@ -37,7 +37,7 @@ function getLeaderboard($limit = 10) {
     $res = mysqli_query($conn,
         "SELECT u.name, MAX(q.percentage) AS best
          FROM quiz_attempts q
-         JOIN users u ON u.user_id = q.user_id
+         JOIN users u ON u.id = q.user_id
          GROUP BY q.user_id
          ORDER BY best DESC
          LIMIT $limit"

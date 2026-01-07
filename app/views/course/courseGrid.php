@@ -1,16 +1,18 @@
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>Courses</title>
-    <link rel="stylesheet" href="public/assets/css/coursegrid_style.css">
+    <link rel="stylesheet" href="assets/css/coursegrid_style.css">
 </head>
 <body>
 <div class="course-grid">
 <?php foreach($courses as $course): ?>
     <div class="course-box" data-id="<?= $course['id'] ?>">
         <h3><?= $course['name'] ?></h3>
-        <p><?= $course['short_desc'] ?></p>
-        <button class="enroll-btn" onclick="location.href='../enroll/enroll.php?id=<?= $course['id'] ?>'">Enroll</button>
+        <p><?= $course['short_description'] ?></p>
+       <button class="enroll-btn" onclick="location.href='enroll.php?id=<?= $course['id'] ?>'">Enroll</button>
+
         <button class="details-btn">Details</button>
     </div>
 <?php endforeach; ?>
@@ -24,6 +26,7 @@
     </div>
 </div>
 
-<script src="public/assets/js/course_script.js"></script>
+
+<script src="assets/js/course_script.js"></script>
 </body>
 </html>

@@ -15,10 +15,12 @@ function submitQuiz() {
     formData.append("quiz_id", quizId);
     formData.append("answers", JSON.stringify(answers));
 
-    fetch("../ajax/submit_quiz.php", {
-        method:"POST",
-        body:formData
-    })
+    fetch("/Turtlers-Academy/public/ajax/submit_quiz.php", {
+    method:"POST",
+    body: formData
+})
+
+
     .then(res=>res.json())
     .then(data=>{
         if(data.status==="ok"){

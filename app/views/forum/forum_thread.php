@@ -2,7 +2,7 @@
 <html>
 <head>
     <title><?= htmlspecialchars($thread['title']) ?></title>
-    <link rel="stylesheet" href="public/assets/css/forum.css">
+    <link rel="stylesheet" href="assets/css/forum_style.css">
 </head>
 <body>
 
@@ -23,7 +23,7 @@
         </div>
     <?php } ?>
 
-    <form method="POST" action="../../controllers/forumController.php?action=comment">
+    <form method="POST" action="forum.php?action=comment">
         <input type="hidden" name="thread_id" value="<?= $thread['id'] ?>">
         <textarea name="comment" placeholder="Write your reply..." required></textarea>
         <button class="btn">Reply</button>

@@ -2,22 +2,20 @@
 <html>
 <head>
     <title>Forum</title>
-    <link rel="stylesheet" href="public/assets/css/forum_style.css">
+    <link rel="stylesheet" href="assets/css/forum_style.css">
 </head>
 <body>
 
 <div class="container">
     <div class="header">
         <h2>Student Forum</h2>
-        <a href="../../controllers/forumController.php?action=create" class="btn">
-            Create Thread
-        </a>
+        <a href="forum.php?action=create" class="btn">Create Thread</a>
     </div>
 
     <?php while($row = mysqli_fetch_assoc($threads)) { ?>
         <div class="thread">
             <h3>
-                <a href="../../controllers/forumController.php?action=view&id=<?= $row['id'] ?>">
+                <a href="forum.php?action=view&id=<?= $row['id'] ?>">
                     <?= htmlspecialchars($row['title']) ?>
                 </a>
             </h3>

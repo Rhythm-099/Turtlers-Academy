@@ -1,5 +1,6 @@
 <h2><?= $course['name'] ?></h2>
-<p><?= $course['details'] ?></p>
+<p><?= $course['short_description'] ?></p>
+<p><?= $course['full_description'] ?></p>
 <p><strong>Average Rating:</strong> <?= $rating ?>/5</p>
 
 <?php if($user_id && $enrolled): ?>

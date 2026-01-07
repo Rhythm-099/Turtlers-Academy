@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Enroll | <?= $course['name'] ?></title>
-    <link rel="stylesheet" href="public/assets/css/enroll_style.css">
+    <link rel="stylesheet" href="assets/css/enroll_style.css">
 </head>
 <body>
 
@@ -30,6 +30,6 @@
 
 </div>
 
-<script src="public/assets/js/enroll_script.js"></script>
+<script src="assets/js/enroll_script.js"></script>
 </body>
 </html>

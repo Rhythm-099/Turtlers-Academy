@@ -65,3 +65,17 @@ button:hover {
 .popup-actions button {
     margin-top:10px;
 }
+
+.popup {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.6);
+}
+
+.popup.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
