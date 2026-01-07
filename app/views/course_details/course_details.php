@@ -44,9 +44,10 @@ if (!$course) {
     <h3>Course Overview</h3>
     <p><?php echo nl2br(htmlspecialchars($course['description'])); ?></p>
     
-    <a href="../download_lesson.php?course_id=<?php echo $course['id']; ?>" class="download-btn" style="text-decoration: none; display: inline-block; text-align: center;">
-        Download Course Materials
-    </a>
+    <a href="/../download_lesson/course_materials.php?course_id=<?= $course['id']; ?>">
+    Download Course Materials
+</a>
+
 </div>
 
 </body>
