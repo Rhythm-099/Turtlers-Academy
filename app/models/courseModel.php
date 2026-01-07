@@ -51,6 +51,7 @@ function deleteCourse($db, $id) {
     return mysqli_query($db, $sql);
 }
 ?>
+
 ?>
 function getAllCourses($conn){
     $res = mysqli_query($conn, "SELECT * FROM courses");
