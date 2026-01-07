@@ -7,7 +7,7 @@ if (!$db) {
 
 
 function getAllCourses($db) {
-    $sql = "SELECT * FROM courses ORDER BY created_at DESC";
+    $sql = "SELECT * FROM courses ORDER BY id DESC";
     $result = mysqli_query($db, $sql);
     if (!$result) return [];
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
