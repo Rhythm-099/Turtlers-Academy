@@ -1,5 +1,4 @@
 <?php
-// --- 1. DATA (Associative Arrays) ---
 require_once __DIR__ . '/../../core/database.php';
 require_once __DIR__ . '/../models/tutorModel.php';
 require_once __DIR__ . '/../models/courseModel.php';
