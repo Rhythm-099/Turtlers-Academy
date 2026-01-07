@@ -1,5 +1,5 @@
 <?php
-// --- 1. DATA (Associative Arrays) ---
+
 require_once __DIR__ . '/../../core/database.php';
 require_once __DIR__ . '/../models/tutorModel.php';
 require_once __DIR__ . '/../models/courseModel.php';
@@ -9,14 +9,12 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Simulate Session for Tutor (For now using Dr. Smith as default if not set)
-// In a real app, login would set $_SESSION['image'], etc.
+
 $tutorName = $_SESSION['tutor_name'] ?? "Dr. Smith";
 
-// --- 1. DATA (From DB) ---
 $tutorData = getTutorProfile($conn, $tutorName);
 
-// Fallback if not found
+
 if (!$tutorData) {
     $tutorData = [
         "name" => $tutorName,
@@ -32,7 +30,7 @@ $tutorProfile = [
     "image" => $tutorData['image']
 ];
 
-// Get Tutor's Course
+
 $courseRow = getCourseByTutor($conn, $tutorProfile['name']);
 
 $tutorCourse = [
@@ -45,21 +43,21 @@ $allStudents = [];
 
 if ($courseRow) {
     $tutorCourse['title'] = $courseRow['course_name'];
-    $tutorCourse['code'] = $courseRow['course_code']; // Assuming course_code column exists
+    $tutorCourse['code'] = $courseRow['course_code']; 
 
-    // Get students
+  
     $studentsDB = getEnrolledStudentsForCourse($conn, $courseRow['id']);
 
-    // Format for View Students tab
-    $allStudents = $studentsDB; // structure matches {id, name, email, course}
+    
+    $allStudents = $studentsDB; 
 
-    // Format list for Your Course tab
+    
     foreach ($studentsDB as $s) {
         $tutorCourse['enrolled'][] = $s['name'];
     }
 }
 
-// Get All Courses for Library
+
 $dbCourses = getAllCourses($conn);
 $allCourses = [];
 foreach ($dbCourses as $c) {
@@ -70,15 +68,15 @@ foreach ($dbCourses as $c) {
     ];
 }
 
-// --- 2. AJAX ROUTING ---
+
 if (isset($_GET['action'])) {
     $action = $_GET['action'];
 
-    // Action: List Students (With Search Bar)
+    
     if ($action === 'view_students') {
         echo "<h3>Find Student</h3>";
 
-        // Fetch ALL students for this global list
+      
         $globalStudents = getAllStudentsWithCourses($conn);
 
         echo "
@@ -103,7 +101,7 @@ if (isset($_GET['action'])) {
         exit;
     }
 
-    // Action: Your Course
+  
     if ($action === 'your_course') {
         echo "<h3>Manage: {$tutorCourse['title']}</h3>
               <p>Course Code: <b>{$tutorCourse['code']}</b></p>
@@ -115,7 +113,7 @@ if (isset($_GET['action'])) {
         exit;
     }
 
-    // Action: Course Settings
+   
     if ($action === 'course_settings') {
         echo "<h3>Course Management</h3>
               <div style='margin-top:20px;'>
@@ -125,11 +123,9 @@ if (isset($_GET['action'])) {
         exit;
     }
 
-    // Action: Resource Upload Form
+    
     if ($action === 'upload_resource') {
-        // Fetch existing resources for this tutor
-        // Using $tutorData['id'] assuming it was set earlier from getTutorProfile
-        // But getTutorProfile returns id? Yes.
+       
         $tutorId = $tutorData['id'];
         $myResources = getResourcesByTutor($conn, $tutorId);
 
@@ -184,7 +180,7 @@ if (isset($_GET['action'])) {
         exit;
     }
 
-    // Action: File Processing
+   
     if ($action === 'process_upload') {
         if (isset($_FILES['resource_file']) && isset($_POST['title'])) {
             $fileName = $_FILES['resource_file']['name'];
@@ -194,7 +190,7 @@ if (isset($_GET['action'])) {
             if (!in_array($fileExt, $allowed)) {
                 echo "<span style='color:#e74c3c;'>Error: Invalid format. Only PDF, DOCX, and PPTX allowed.</span>";
             } else {
-                // Upload logic
+              
                 $targetDir = __DIR__ . "/../../public/assets/uploads/resources/";
                 if (!file_exists($targetDir)) {
                     mkdir($targetDir, 0777, true);
@@ -205,7 +201,7 @@ if (isset($_GET['action'])) {
                 $dbPath = "/Turtlers-Academy/public/assets/uploads/resources/" . $newFileName;
 
                 if (move_uploaded_file($_FILES['resource_file']['tmp_name'], $targetFile)) {
-                    // Save to DB
+                   
                     $tutorId = intval($tutorData['id']);
 
                     if ($tutorId <= 0) {
@@ -213,7 +209,7 @@ if (isset($_GET['action'])) {
                         echo "Debug: Searching for '{$tutorName}'. Result ID: {$tutorId}.<br>";
                         echo "Please ensure you have run 'database/instructors_to_users.sql'.</span>";
                     } else {
-                        // Get course_id from current course
+                        
                         $courseId = 0;
                         if ($courseRow) {
                             $courseId = $courseRow['id'];
@@ -234,19 +230,15 @@ if (isset($_GET['action'])) {
         exit;
     }
 
-    // Action: Delete Resource
+    
     if ($action === 'delete_resource') {
         if (isset($_GET['id'])) {
             $id = intval($_GET['id']);
             $filePath = deleteResource($conn, $id);
             if ($filePath) {
-                // Delete actual file
-                $fullPath = __DIR__ . "/../../.." . $filePath; // $filePath starts with /Turtlers-Academy... need to map to relative
-                // Or better construct from doc root or strict path
-                // filePath: /Turtlers-Academy/public/assets/uploads/resources/xxx.pdf
-                // Current dir: app/controllers
-                // Root: c:/xampp/htdocs/Turtlers-Academy
-                // We can try to use $_SERVER['DOCUMENT_ROOT'] . $filePath
+               
+                $fullPath = __DIR__ . "/../../.." . $filePath; 
+               
                 $sysPath = $_SERVER['DOCUMENT_ROOT'] . $filePath;
                 if (file_exists($sysPath)) {
                     unlink($sysPath);
@@ -259,7 +251,7 @@ if (isset($_GET['action'])) {
         exit;
     }
 
-    // Action: Course Library (With Search Bar)
+   
     if ($action === 'view_all_courses') {
         echo "<h3>Available Courses</h3>
         <div style='margin-bottom: 20px;'>

@@ -5,7 +5,7 @@ require_once __DIR__ . "/../models/forumModel.php";
 $user_id = $_SESSION['user_id'] ?? 999;
 $action = $_GET['action'] ?? 'list';
 
-// List all threads
+
 if ($action === 'list') {
     $query = $_GET['q'] ?? '';
     if ($query) {

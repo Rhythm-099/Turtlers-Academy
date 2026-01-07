@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . "/../../core/database.php";
 
-// Get all quizzes
+
 function getQuizzes()
 {
     global $conn;
@@ -25,7 +25,7 @@ function getQuestions($quiz_id)
     return mysqli_fetch_all($res, MYSQLI_ASSOC);
 }
 
-// Save quiz attempt
+
 function saveAttempt($user_id, $quiz_id, $score, $total, $percentage)
 {
     global $conn;
@@ -42,7 +42,7 @@ function saveAttempt($user_id, $quiz_id, $score, $total, $percentage)
     );
 }
 
-// Get leaderboard
+
 function getLeaderboard($limit = 10)
 {
     global $conn;

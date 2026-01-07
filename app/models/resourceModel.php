@@ -19,7 +19,7 @@ function deleteResource($conn, $resource_id)
 {
     $resource_id = intval($resource_id);
 
-    // First get the file path to return it (so controller can delete file)
+    
     $query = "SELECT file_path FROM resources WHERE id = $resource_id";
     $res = mysqli_query($conn, $query);
     $row = mysqli_fetch_assoc($res);
@@ -27,7 +27,7 @@ function deleteResource($conn, $resource_id)
     if ($row) {
         $delQuery = "DELETE FROM resources WHERE id = $resource_id";
         if (mysqli_query($conn, $delQuery)) {
-            return $row['file_path']; // Return path on success
+            return $row['file_path']; 
         }
     }
     return false;
@@ -49,8 +49,7 @@ function getResourcesForStudent($conn, $user_id)
 {
     $user_id = intval($user_id);
 
-    // Join enrollments to courses to resources
-    // Also join users (as tutor) to get tutor name
+    
     $query = "
         SELECT r.*, u.full_name as tutor_name, c.course_name
         FROM resources r

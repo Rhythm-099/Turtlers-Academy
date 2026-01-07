@@ -1,6 +1,5 @@
 <?php
-// courseModel.php
-// Database queries for courses
+
 
 function getAllCourses($conn){
     $res = mysqli_query($conn, "SELECT * FROM courses");

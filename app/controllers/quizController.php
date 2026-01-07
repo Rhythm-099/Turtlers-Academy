@@ -1,8 +1,8 @@
 <?php
-//session_start(); // ensure session is available
+/
 require_once __DIR__ . "/../models/quizModel.php";
 
-// Show all quizzes
+
 function quizList()
 {
     $quizzes = getQuizzes();
@@ -23,7 +23,7 @@ function takeQuiz($quiz_id)
     include __DIR__ . "/../views/quiz/quiztake.php";
 }
 
-// Show leaderboard
+
 function leaderboard()
 {
     $leaders = getLeaderboard();
