@@ -1,4 +1,3 @@
-/* Body base styles for theme colors */
 body.light-mode {
     background-color: #ffffff;
     color: #333333;
@@ -10,12 +9,11 @@ body.dark-mode {
 }
 
 .theme-btn {
-    /* Positioning */
+
     position: fixed;
     bottom: 20px;
     right: 20px;
     
-    /* Visual Style */
     width: 60px;
     height: 30px;
     background: #ccc;
@@ -24,10 +22,9 @@ body.dark-mode {
     cursor: pointer;
     position: fixed;
     transition: background 0.3s;
-    font-size: 0; /* Hides the text so it looks like a clean switch */
+    font-size: 0;
 }
 
-/* The "Slider" Circle */
 .theme-btn::before {
     content: "";
     position: absolute;
@@ -40,7 +37,6 @@ body.dark-mode {
     transition: transform 0.3s;
 }
 
-/* Dark Mode State - Changes button color and moves the circle */
 .dark-mode .theme-btn {
     background: #bd5805;
 }
