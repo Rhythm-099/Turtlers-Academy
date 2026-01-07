@@ -1,6 +1,8 @@
 <?php
-    include_once '../../partials/header.php';
+
+    include_once '../partials/header.php';
 ?>
+
 <html>
 <head><title>Edit Profile</title></head>
 <body style="background-color: oldlace; font-family: Arial;">
@@ -23,9 +25,7 @@
 </html>
 
 <?php
-    include_once '../../views/bgtoggler/bgtoggler.php';
-?>
-
-<?php
-    include_once '../../partials/footer.php';
+ 
+    include_once '../bgtoggler/bgtoggler.php';
+    include_once '../partials/footer.php';
 ?>
