@@ -1,15 +1,12 @@
-/* course_list.css */
-
 .header-group {
     width: 100%;
-    max-width: 700px; /* Slightly wider than dashboard to fit list details */
-    /* margin: top right bottom left */
+    max-width: 700px; 
     margin: 10px 0 20px 150px !important; 
     display: flex;
     justify-content: space-between; 
     align-items: center;
     padding-bottom: 10px;
-    border-bottom: 3px solid #006400; /* Darkgreen Line */
+    border-bottom: 3px solid #006400; 
 }
 
 .header-group h1 {
@@ -19,7 +16,6 @@
     font-size: 24px;
 }
 
-/* Styling for the Search/Filter container if you use it */
 .search-container {
     margin: 0 0 20px 150px !important;
 }
@@ -27,7 +23,7 @@
 .table-container {
     width: 100%;
     max-width: 900px; 
-    margin: 0 0 40px 150px !important; /* Matches the left shift of header */
+    margin: 0 0 40px 150px !important; 
     background: white;
     padding: 20px;
     border-radius: 10px;
@@ -56,9 +52,8 @@
     vertical-align: middle;
 }
 
-/* Details Button styling to match dashboard links */
 .details-btn {
-    background-color: #006400; /* Green theme */
+    background-color: #006400;
     color: white !important;
     padding: 8px 16px;
     text-decoration: none;
@@ -73,7 +68,6 @@
     background-color: #004d00;
 }
 
-/* For status badges (e.g., Active/Completed) */
 .status-badge {
     padding: 4px 8px;
     border-radius: 12px;

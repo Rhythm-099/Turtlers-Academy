@@ -1,9 +1,5 @@
-/* edit_course.css */
-
 .form-container { 
   max-width: 500px; 
-  /* margin: Top Right Bottom Left */
-  /* 10px top pulls it up, 550px left pushes it far to the right */
   margin: 10px 0 40px 550px !important; 
   padding: 25px; 
   background: #fff; 
@@ -17,7 +13,7 @@
 .form-container h2 {
     margin-top: 0;
     color: #111;
-    border-bottom: 2px solid #007BFF; /* Blue line for Edit */
+    border-bottom: 2px solid #007BFF; 
     padding-bottom: 10px;
 }
 
@@ -34,17 +30,16 @@
   margin-top: 5px; 
   border: 1px solid #ccc; 
   border-radius: 5px; 
-  box-sizing: border-box; /* Keeps inputs inside the box */
-}
+  box-sizing: border-box; 
 
-/* Image preview styling */
+
 .form-container img {
     margin: 10px 0;
     border-radius: 4px;
     border: 1px solid #ddd;
 }
 
-/* The Blue Update Button */
+
 button[name="update_course"], #updateBtn { 
   background-color: #007BFF !important; 
   color: white !important; 
@@ -62,7 +57,7 @@ button[name="update_course"]:hover, #updateBtn:hover {
   background-color: #0056b3 !important; 
 }
 
-/* Cancel link styling */
+
 .form-container a {
     display: block;
     text-align: center;
@@ -74,4 +69,5 @@ button[name="update_course"]:hover, #updateBtn:hover {
 
 .form-container a:hover {
     text-decoration: underline;
+}
 }

@@ -1,22 +1,21 @@
 <?php
-// Connect to database
 $conn = mysqli_connect("localhost", "root", "", "turtlers_academy");
 
-// ADD COURSE
+
 if(isset($_POST['add_course'])) {
     $code = $_POST['course_code'];
     $name = $_POST['course_name'];
     $instructor = $_POST['instructor_name'];
     $desc = $_POST['description'];
     
-    // Upload image
+  
     $image = "default.png";
     if(!empty($_FILES['course_image']['name'])) {
         $image = time() . "_" . $_FILES['course_image']['name'];
         move_uploaded_file($_FILES['course_image']['tmp_name'], "../../public/assets/upload/" . $image);
     }
     
-    // Insert to database
+  
     $sql = "INSERT INTO courses (course_code, course_name, instructor_name, description, course_image) 
             VALUES ('$code', '$name', '$instructor', '$desc', '$image')";
     mysqli_query($conn, $sql);
@@ -25,7 +24,7 @@ if(isset($_POST['add_course'])) {
     exit();
 }
 
-// UPDATE COURSE
+
 if(isset($_POST['update_course'])) {
     $id = $_POST['course_id'];
     $code = $_POST['course_code'];
@@ -53,7 +52,7 @@ if(isset($_POST['update_course'])) {
     exit();
 }
 
-// DELETE COURSE
+
 if(isset($_GET['delete_id'])) {
     $id = $_GET['delete_id'];
     $sql = "DELETE FROM courses WHERE id='$id'";

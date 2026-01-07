@@ -1,10 +1,9 @@
 <?php 
 
-// 2. Procedural Include and Logic
 include "../../models/courseModel.php";
 include "../partials/header.php"; 
 
-// Get ID from URL and fetch via procedural function
+
 if (isset($_GET['id'])) {
     $id = (int)$_GET['id'];
     $course = getCourseById($db, $id);
@@ -12,7 +11,7 @@ if (isset($_GET['id'])) {
     $course = null;
 }
 
-// Safety Check: If no course is found, show an error
+
 if (!$course) {
     die("Course not found.");
 }

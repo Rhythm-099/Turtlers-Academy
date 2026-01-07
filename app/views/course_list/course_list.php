@@ -1,9 +1,9 @@
 <?php 
-// 1. Include the model which contains the $db connection and functions
+
 require_once "../../models/courseModel.php";
 include "../partials/header.php";
 
-// 2. Get data using the procedural function (No 'new' keyword)
+
 $courses = getAllCourses($db); 
 ?>
 <!DOCTYPE html>
