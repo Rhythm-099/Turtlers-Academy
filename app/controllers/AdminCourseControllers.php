@@ -1,6 +1,13 @@
 <?php
 $conn = mysqli_connect("localhost", "root", "", "turtlers_academy");
+/*session_start();
+if(!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin'){
+    die("Access Denied");
+}
+    */
 
+
+require_once "../models/AdminCourseModel.php";
 
 if(isset($_POST['add_course'])) {
     $code = $_POST['course_code'];
@@ -8,17 +15,13 @@ if(isset($_POST['add_course'])) {
     $instructor = $_POST['instructor_name'];
     $desc = $_POST['description'];
     
-  
     $image = "default.png";
     if(!empty($_FILES['course_image']['name'])) {
         $image = time() . "_" . $_FILES['course_image']['name'];
         move_uploaded_file($_FILES['course_image']['tmp_name'], "../../public/assets/upload/" . $image);
     }
     
-  
-    $sql = "INSERT INTO courses (course_code, course_name, instructor_name, description, course_image) 
-            VALUES ('$code', '$name', '$instructor', '$desc', '$image')";
-    mysqli_query($conn, $sql);
+    addCourse($db, $code, $name, $instructor, $desc, $image);
     
     header("Location: ../views/course_dashboard/dashboard.php?msg=Course Added");
     exit();
@@ -32,21 +35,14 @@ if(isset($_POST['update_course'])) {
     $instructor = $_POST['instructor_name'];
     $desc = $_POST['description'];
     
-    $image_sql = "";
     if(!empty($_FILES['course_image']['name'])) {
         $image = time() . "_" . $_FILES['course_image']['name'];
         move_uploaded_file($_FILES['course_image']['tmp_name'], "../../public/assets/upload/" . $image);
-        $image_sql = ", course_image='$image'";
+        
+        updateCourseWithImage($db, $id, $code, $name, $instructor, $desc, $image);
+    } else {
+        updateCourse($db, $id, $code, $name, $instructor, $desc);
     }
-    
-    $sql = "UPDATE courses SET 
-            course_code='$code', 
-            course_name='$name', 
-            instructor_name='$instructor', 
-            description='$desc' 
-            $image_sql 
-            WHERE id='$id'";
-    mysqli_query($conn, $sql);
     
     header("Location: ../views/course_dashboard/dashboard.php?msg=Course Updated");
     exit();
@@ -55,10 +51,10 @@ if(isset($_POST['update_course'])) {
 
 if(isset($_GET['delete_id'])) {
     $id = $_GET['delete_id'];
-    $sql = "DELETE FROM courses WHERE id='$id'";
-    mysqli_query($conn, $sql);
+    deleteCourse($db, $id);
     
     header("Location: ../views/course_dashboard/dashboard.php?msg=Course Deleted");
     exit();
 }
+
 ?>

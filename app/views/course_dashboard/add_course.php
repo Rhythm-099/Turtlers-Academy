@@ -1,6 +1,16 @@
 <?php 
-require_once "../../models/courseModel.php";
-include "../partials/header.php"; 
+/*session_start();
+if(isset($_SESSION['status']) !== true){
+    header('location: ../../public/login.html');
+    exit;
+}
+if(!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin'){
+    echo "Access Denied";
+    exit;
+} */
+require_once "../../models/AdminCourseModel.php";
+// 
+
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +24,7 @@ include "../partials/header.php";
     <div class="form-container">
         <h2 style="margin-top: 20px; color: #111;">Add New Course</h2>
         
-        <form action="../../controllers/CourseControllers.php" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+        <form action="../../controllers/AdminCourseControllers.php" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
             
             <label>Course Code</label>
             <input type="text" name="course_code" id="code" placeholder="e.g. web-dev-101" required>
@@ -40,8 +50,3 @@ include "../partials/header.php";
     </div>
 </body>
 </html>
-
-<?php 
-
-include '../partials/footer.php'; 
-?>

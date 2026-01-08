@@ -1,8 +1,12 @@
 <?php 
-
-include "../../models/courseModel.php";
-include "../partials/header.php"; 
-
+/*session_start();
+if(isset($_SESSION['status']) !== true){
+    header('location: ../../public/login.html');
+    exit;
+}
+    */
+include "../../models/AdminCourseModel.php";
+//
 
 if (isset($_GET['id'])) {
     $id = (int)$_GET['id'];
@@ -43,11 +47,11 @@ if (!$course) {
     <h3>Course Overview</h3>
     <p><?php echo nl2br(htmlspecialchars($course['description'])); ?></p>
     
-    <a href="../download_lesson.php?course_id=<?php echo $course['id']; ?>" class="download-btn" style="text-decoration: none; display: inline-block; text-align: center;">
+    <a href="../download_lesson/download_lesson.php?course_id=<?php echo $course['id']; ?>" class="download-btn">
         Download Course Materials
     </a>
 </div>
 
 </body>
 </html>
-<?php include "../partials/footer.php"; ?>
+

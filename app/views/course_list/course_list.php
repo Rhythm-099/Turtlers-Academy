@@ -1,7 +1,11 @@
 <?php 
+/*session_start();
+if(isset($_SESSION['status']) !== true){
+    header('location: ../../public/login.html');
+    exit;
+}*/
+require_once "../../models/AdminCourseModel.php";
 
-require_once "../../models/courseModel.php";
-include "../partials/header.php";
 
 
 $courses = getAllCourses($db); 
@@ -15,10 +19,13 @@ $courses = getAllCourses($db);
 </head>
 <body>
 
-    <main class="main-content">
-        <h1>Available Courses</h1>
-        
-        <table class="course-table" id="studentTable">
+    <div class="main-content">
+    <div class="header-group">
+         <!-- Heading Removed -->
+    </div>
+    
+    <div class="table-container">
+        <table class="course-table">
             <thead>
                 <tr>
                     <th>Course ID</th>
@@ -48,8 +55,7 @@ $courses = getAllCourses($db);
                 <?php endif; ?>
             </tbody>
         </table>
-    </main>
-
-    <?php include "../partials/footer.php"; ?>
+    </div>
+    </div>
 </body>
 </html>

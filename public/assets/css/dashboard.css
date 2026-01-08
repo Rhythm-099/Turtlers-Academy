@@ -1,62 +1,112 @@
-.header-group {
-    width: 100%;
-    max-width: 700px;
-    margin: 0px auto 20px auto;
-    display: flex;
-    justify-content: space-between; 
-    align-items: center;
-    padding-bottom: 10px;
-    border-bottom: 3px solid #006400; 
-}
-
-.header-group h1 {
-    color: #1a241e;
+* {
+    box-sizing: border-box;
     margin: 0;
+    padding: 0;
     font-family: 'Poppins', sans-serif;
 }
 
-.btn-add {
-    background-color: #006400;
-    color: white !important; 
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 6px;
-    font-weight: 600;
+
+.academy-header .btn-login,
+header .btn-login {
+    display: none !important;
 }
 
-.btn-add:hover {
-    background-color: #004d00;
+body {
+    background: #f4f7f6;
+}
+
+.main-content {
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .table-container {
     width: 100%;
-    max-width: 700px;
-    margin: 0 auto; 
-    background: white;
-    padding: 15px;
+    max-width: 900px;
+    background-color: #ffffff;
     border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin-top: 10px;
+}
+
+.header-group {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+h1 {
+    margin: 0;
+    text-align: center;
+    font-size: 28px;
+    color: #333;
+}
+
+.btn-add,
+.details-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.btn-add:hover,
+.details-btn:hover {
+    background-color: #000;
 }
 
 .course-table {
     width: 100%;
     border-collapse: collapse;
-    font-family: 'Poppins', sans-serif;
+}
+
+.course-table th,
+.course-table td {
+    border: 1px solid #ddd;
+    padding: 12px 15px;
+    text-align: left;
+    font-size: 16px;
 }
 
 .course-table th {
-    background-color: #f8f9fa;
-    padding: 15px;
-    text-align: left;
-    border-bottom: 2px solid #ddd;
+    background-color: #333;
+    color: white;
+    font-size: 18px;
+}
+
+.course-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.course-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.edit-link {
     color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    margin-right: 10px;
 }
 
-.course-table td {
-    padding: 15px;
-    border-bottom: 1px solid #eee;
-    color: #555;
+.delete-link {
+    color: #dc3545;
+    text-decoration: none;
+    font-weight: bold;
 }
 
-.edit-link { color: #007BFF; text-decoration: none; font-weight: bold; }
-.delete-link { color: #dc3545; text-decoration: none; font-weight: bold; }
+.edit-link:hover,
+.delete-link:hover {
+    text-decoration: underline;
+}

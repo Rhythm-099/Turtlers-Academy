@@ -1,14 +1,28 @@
 <?php 
-require_once "../../models/courseModel.php";
-include "../partials/header.php"; 
-
+/*session_start();
+if(isset($_SESSION['status']) !== true){
+    header('location: ../../public/login.html');
+    exit;
+}
+if(!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin'){
+    echo "Access Denied: You are not an Admin.";
+    exit;
+}*/
+require_once "../../models/AdminCourseModel.php";
 $courses = getAllCourses($db);
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Course Dashboard</title> 
+    <link rel="stylesheet" href="../../../public/assets/css/dashboard.css">
+</head>
+<body>
 
-<link rel="stylesheet" href="../../../public/assets/css/dashboard.css">
-
+<div class="main-content">
 <div class="header-group">
-    <h1>Course Dashboard</h1>
+   
     <a href="add_course.php" class="btn-add">Add New Course</a>
 </div>
 
@@ -32,7 +46,7 @@ $courses = getAllCourses($db);
                 <td><?php echo htmlspecialchars($course['instructor_name']); ?></td>
                 <td>
                     <a href="edit_course.php?id=<?php echo $course['id']; ?>" class="edit-link">Edit</a> | 
-                    <a href="../../controllers/CourseControllers.php?delete_id=<?php echo $course['id']; ?>" 
+                    <a href="../../controllers/AdminCourseControllers.php?delete_id=<?php echo $course['id']; ?>" 
                        class="delete-link" 
                        onclick="return confirm('Delete this course?')">Delete</a>
                 </td>
@@ -41,5 +55,7 @@ $courses = getAllCourses($db);
         </tbody>
     </table>
 </div>
+</div>
 
-<?php include "../partials/footer.php"; ?>
+</body>
+</html>
