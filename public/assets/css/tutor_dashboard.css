@@ -1,0 +1,23 @@
+
+table td, table th {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+table th {
+    background-color: #3a6cf4;
+    color: white;
+}
+input[type="file"] {
+    display: block;
+    background: #f1f1f1;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+}
+#uploadForm input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+}

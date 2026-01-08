@@ -1,0 +1,94 @@
+.lesson-list-wrapper {
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.lesson-table-container {
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin-top: 10px;
+}
+
+.lesson-list-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+h1 {
+    margin: 0;
+    text-align: center;
+    font-size: 28px;
+    color: #333;
+}
+
+.btn-add,
+.details-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.btn-add:hover,
+.details-btn:hover {
+    background-color: #000;
+}
+
+.course-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.course-table th,
+.course-table td {
+    border: 1px solid #ddd;
+    padding: 12px 15px;
+    text-align: left;
+    font-size: 16px;
+}
+
+.course-table th {
+    background-color: #333;
+    color: white;
+    font-size: 18px;
+}
+
+.course-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.course-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.edit-link {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.delete-link {
+    color: #dc3545;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.edit-link:hover,
+.delete-link:hover {
+    text-decoration: underline;
+}
