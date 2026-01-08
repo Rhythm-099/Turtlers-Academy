@@ -10,18 +10,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 
     <style>
-        /* Global*/
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #ffffff;
-            color: #111;
-            line-height: 1.6;
-            min-height: 100vh;
-            display: flex; flex-direction: column;
-        }
+        
+           *{ margin: 0; 
+                 padding: 0; 
+                 box-sizing: border-box;
+            }
 
-        /* Header */
+        body {
+                font-family: 'Poppins', sans-serif;
+                background-color: #ffffff;
+                color: #111;
+                line-height: 1.6;
+                min-height: 100vh;
+                display: flex; flex-direction: column;
+            }
+
+        
         .academy-header {
             background: #ffffff;
             border-bottom: 1px solid #e5e5e5;
@@ -32,27 +36,54 @@
             display: flex; justify-content: space-between;
             align-items: center; padding: 18px 48px;
         }
-        .brand { font-size: 22px; font-weight: 800; color: #111; }
-        .academy { font-weight: 600; color: #888; }
 
-        nav.main-nav { display: flex; gap: 28px; }
+        .brand { 
+                 font-size: 22px; 
+                 font-weight: 800; 
+                 color: #111; 
+                }
+
+        .academy { 
+                     font-weight: 600; 
+                     color: #888; 
+                 }
+
+        nav.main-nav { 
+                      display: flex; 
+                      gap: 28px; 
+                    }
+
         nav.main-nav a {
-            text-decoration: none; color: #333;
-            font-size: 15px; opacity: 0.75;
+            text-decoration: none; 
+            color: #333;
+            font-size: 15px; 
+            opacity: 0.75;
         }
+
         nav.main-nav a:hover { opacity: 1; }
 
         .btn-login {
-            padding: 8px 18px; border-radius: 4px;
-            border: 1.5px solid #111; background: transparent;
-            text-decoration: none; color: #111; font-weight: 600;
-        }
-        .btn-login:hover {
-            background: #111; color: #fff;
+            padding: 8px 18px; 
+            border-radius: 4px;
+            border: 1.5px solid #111; 
+            background: transparent;
+            text-decoration: none; 
+            color: #111; 
+            font-weight: 600;
         }
 
-        /* MAIN */
-        .main-content { flex: 1; padding: 80px 20px; text-align: center; }
+        .btn-login:hover {
+            background: #111; 
+            color: #fff;
+        }
+
+        
+        .main-content { 
+            flex: 1; 
+            padding: 80px 20px; 
+            text-align: center; 
+        }
+        
     </style>
 
 </head>
@@ -67,11 +98,10 @@
 
         <nav class="main-nav">
             <a href="#home">Home</a>
-            <a href="#catagories">Catagories</a>
             <a href="#courses">Courses</a>
-            <a href="#admissions">Admissions</a>
+            <a href="#mydashboard">My Dashboard</a>
             <a href="#resources">Resources</a>
-            <a href="#about">About</a>
+            <a href="#tools">Tools</a>
         </nav>
 
         <a class="btn-login" href="#login">Log In</a>
