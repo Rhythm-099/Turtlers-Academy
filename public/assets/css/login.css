@@ -1,0 +1,84 @@
+:root {
+    --primary-green: darkgreen;
+    --bg-color: oldlace;
+    --box-bg: #ffffff;
+}
+
+
+
+.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+
+    width: 100%;
+}
+
+form {
+    background-color: var(--box-bg);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border: 2px solid var(--primary-green);
+ 
+    border-top: 10px solid var(--primary-green);
+
+    width: 350px;
+    text-align: center;
+}
+
+h2 {
+    color: var(--primary-green);
+    margin-bottom: 25px;
+    font-size: 24px;
+}
+
+label {
+    display: block;
+    text-align: left;
+    font-weight: bold;
+    color: var(--primary-green);
+    margin-top: 15px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    background-color: var(--primary-green);
+    color: white;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: 0.3s;
+}
+
+input[type="submit"]:hover {
+    opacity: 0.9;
+}
+
+a {
+    display: block;
+    margin-top: 20px;
+    color: #666;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+a:hover {
+    color: var(--primary-green);
+    text-decoration: underline;
+}

@@ -1,0 +1,2 @@
+
+console.log("Register page loaded.");

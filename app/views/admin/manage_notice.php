@@ -24,34 +24,34 @@ if(isset($_POST['post_notice'])){
 }
 ?>
 
+<?php
+$isAjax = isset($_GET['ajax']) && $_GET['ajax'] == 'true';
+
+if (!$isAjax) {
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Manage Notices - Turtlers Academy</title>
-    <style>
-        :root { --primary-green: darkgreen; --bg-color: oldlace; --sidebar-bg: #1a241e; }
-        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg-color); margin: 0; display: flex; }
-        .sidebar { width: 250px; height: 100vh; background-color: var(--sidebar-bg); position: fixed; }
-        .content { margin-left: 250px; width: 100%; padding: 30px; }
-        
-        .form-container { background: white; padding: 30px; border-radius: 12px; shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 600px; }
-        input, textarea { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; }
-        .btn-post { background: var(--primary-green); color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px; font-weight: bold; }
-    </style>
+    <link rel="stylesheet" href="../../public/assets/css/admin_dashboard.css">
+    <script src="../../public/assets/js/manage_notice.js" defer></script>
 </head>
 <body>
 
     <div class="sidebar">
-        <div style="padding: 20px; color: var(--primary-green); font-weight: bold; text-align: center;">TURTLERS BOSS</div>
-        <ul style="list-style: none; padding: 0;">
-         <li style="margin-top: auto;"> <a href="../../controllers/logout.php" style="color: #e74c3c;">🚪 Sign Out</a> </li>
+        <div class="sidebar-brand">TURTLERS BOSS</div>
+        <ul class="nav-links">
+            <li><a href="admin_dashboard.php" style="color: #bdc3c7; text-decoration: none; display: block; padding: 15px;">Dashboard</a></li>
             <li><a href="manage_notice.php" style="color: white; text-decoration: none; display: block; padding: 15px; background: #2c3e50;">Manage Notices</a></li>
+            <li style="margin-top: auto;"> <a href="../../controllers/logout.php" style="color: #e74c3c; display: block; padding: 15px;">🚪 Sign Out</a> </li>
         </ul>
     </div>
 
     <div class="content">
-        <h1>Post a New Notice</h1>
+<?php } ?>
+    <div class="card">
+        <h2 class="page-title">Post a New Notice</h2>
         <?php echo $message; ?>
         
         <div class="form-container">
@@ -66,6 +66,9 @@ if(isset($_POST['post_notice'])){
             </form>
         </div>
     </div>
+<?php if (!$isAjax) { ?>
+    </div>
 
 </body>
 </html>
+<?php } ?>

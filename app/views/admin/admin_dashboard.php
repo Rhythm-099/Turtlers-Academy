@@ -1,8 +1,6 @@
 <?php
 session_start();
-
 require_once('../../models/db.php'); 
-
 
 if(!isset($_SESSION['status']) || $_SESSION['role'] != 'admin'){
     header('location: ../login/login.php'); 
@@ -13,19 +11,6 @@ include_once '../partials/header.php';
 
 $conn = getConnection(); 
 $adminName = $_SESSION['username'];
-
-
-$sqlUsers = "SELECT COUNT(id) as total FROM users WHERE role='user'";
-$studentCount = mysqli_fetch_assoc(mysqli_query($conn, $sqlUsers))['total'];
-
-$sqlTutors = "SELECT COUNT(id) as total FROM tutors";
-$tutorCount = mysqli_fetch_assoc(mysqli_query($conn, $sqlTutors))['total'] ?? 0;
-
-$sqlExams = "SELECT COUNT(id) as total FROM exams";
-$examCount = mysqli_fetch_assoc(mysqli_query($conn, $sqlExams))['total'] ?? 0;
-
-$sqlNotices = "SELECT COUNT(id) as total FROM notices";
-$noticeCount = mysqli_fetch_assoc(mysqli_query($conn, $sqlNotices))['total'] ?? 0;
 ?>
 
 <!DOCTYPE html>
@@ -33,139 +18,27 @@ $noticeCount = mysqli_fetch_assoc(mysqli_query($conn, $sqlNotices))['total'] ?? 
 <head>
     <meta charset="UTF-8">
     <title>Admin Dashboard - Turtlers Academy</title>
-    <style>
-        :root {
-            --primary-green: darkgreen;
-            --bg-color: oldlace;
-            --sidebar-bg: #1a241e;
-            --white: #ffffff;
-        }
-
-        body { 
-            font-family: 'Segoe UI', Arial, sans-serif; 
-            background-color: var(--bg-color); 
-            margin: 0; 
-            display: flex; 
-        }
-    
-        .sidebar { 
-            width: 250px; 
-            height: 100vh; 
-            background-color: var(--sidebar-bg); 
-            color: white; 
-            position: fixed; 
-            display: flex; 
-            flex-direction: column; 
-        }
-
-        .sidebar-brand { 
-            padding: 30px; 
-            text-align: center; 
-            font-size: 20px; 
-            font-weight: bold; 
-            border-bottom: 1px solid #333; 
-            color: var(--primary-green); 
-        }
-
-        .nav-links { 
-            list-style: none; 
-            padding: 0; 
-            margin: 0; 
-        }
-
-        .nav-links li a { 
-            display: block; 
-            padding: 15px 25px; 
-            color: #bdc3c7; 
-            text-decoration: none; 
-            transition: 0.3s; 
-            border-left: 4px solid transparent; 
-        }
-
-        .nav-links li a:hover, .nav-links li a.active { 
-            background: #2c3e50; 
-            color: white; 
-            border-left: 4px solid var(--primary-green); 
-        }
-
-        .content { 
-            margin-left: 250px; 
-            width: 100%; 
-            padding: 30px; 
-        }
-
-        .header-card { 
-            background: var(--white); 
-            padding: 25px; 
-            border-radius: 15px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            border-top: 10px solid var(--primary-green); 
-        }
-
-        .grid-container { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-            gap: 20px; 
-            margin-top: 30px; 
-        }
-
-        .stat-box { 
-            background: white; 
-            padding: 20px; 
-            border-radius: 12px; 
-            text-align: center; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
-            transition: 0.3s; 
-        }
-
-        .stat-box:hover { 
-            transform: translateY(-5px); 
-        }
-
-        .stat-box h2 { 
-            font-size: 32px; 
-            color: var(--primary-green); 
-            margin: 0; 
-        }
-
-        .stat-box p { 
-            color: #666; 
-            margin: 5px 0 0; 
-            font-size: 13px; 
-            font-weight: bold; 
-            text-transform: uppercase; 
-        }
-
-        .logout-btn { 
-            background: #c0392b; 
-            color: white; 
-            padding: 10px 20px; 
-            border-radius: 8px; 
-            text-decoration: none; 
-            font-weight: bold; 
-        }
-    </style>
+    <link rel="stylesheet" href="../../../public/assets/css/admin_dashboard.css">
+    <script src="../../../public/assets/js/admin_dashboard.js" defer></script>
 </head>
 <body>
 
     <div class="sidebar">
         <div class="sidebar-brand">TURTLERS BOSS</div>
         <ul class="nav-links">
-            <li><a href="admin_dashboard.php" class="active">Dashboard</a></li>
-            <li><a href="manage_courses.php">Courses</a></li>
-            <li><a href="user_list.php">Students</a></li>
+            <li><a href="admin_dashboard.php" class="active" data-link="dashboard">Dashboard</a></li>
+            <li><a href="manage_courses.php" data-ajax="true">Courses</a></li>
+            <li><a href="user_list.php" data-ajax="true">Students</a></li>
             <li><a href="manage_tutors.php">Tutors</a></li>
             <li><a href="manage_exams.php">Exams</a></li>
-            <li><a href="manage_notice.php">Notices</a></li>
+            <li><a href="manage_notice.php" data-ajax="true">Notices</a></li>
             <li style="margin-top: auto;">
                 <a href="../../controllers/logout.php" style="color: #e74c3c;">🚪 Sign Out</a>
             </li>
         </ul>
     </div>
 
+    <div class="content">
   <div class="header-card">
     <div>
         <h1 style="margin:0; font-size: 28px;">Welcome, <?php echo htmlspecialchars($adminName); ?>!</h1>
@@ -180,20 +53,24 @@ $noticeCount = mysqli_fetch_assoc(mysqli_query($conn, $sqlNotices))['total'] ?? 
 
         <div class="grid-container">
             <div class="stat-box">
-                <h2><?php echo $studentCount; ?></h2>
+                <h2 id="student-count">Loading...</h2>
                 <p>Total Students</p>
             </div>
             <div class="stat-box">
-                <h2><?php echo $tutorCount; ?></h2>
+                <h2 id="tutor-count">Loading...</h2>
                 <p>Expert Tutors</p>
             </div>
             <div class="stat-box">
-                <h2><?php echo $examCount; ?></h2>
+                <h2 id="exam-count">Loading...</h2>
                 <p>Scheduled Exams</p>
             </div>
             <div class="stat-box">
-                <h2><?php echo $noticeCount; ?></h2>
+                <h2 id="notice-count">Loading...</h2>
                 <p>Academy Notices</p>
+            </div>
+            <div class="stat-box">
+                <h2 id="total-salary">Loading...</h2>
+                <p>Total Tutor Salaries</p>
             </div>
         </div>
 
