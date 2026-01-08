@@ -77,7 +77,7 @@
             color: #fff;
         }
 
-       
+        
         .main-content { 
             flex: 1; 
             padding: 80px 20px; 
@@ -98,11 +98,10 @@
 
         <nav class="main-nav">
             <a href="#home">Home</a>
-            <a href="#catagories">Catagories</a>
             <a href="#courses">Courses</a>
-            <a href="#admissions">Admissions</a>
+            <a href="#mydashboard">My Dashboard</a>
             <a href="#resources">Resources</a>
-            <a href="#about">About</a>
+            <a href="#tools">Tools</a>
         </nav>
 
         <a class="btn-login" href="#login">Log In</a>
