@@ -1,8 +1,4 @@
-<?php
-session_start();
-$_SESSION['student_name'] = "Nazat";
-include '../../controllers/dashboardController.php';
-?>
+<?php include '../../controllers/dashboardController.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,11 +7,12 @@ include '../../controllers/dashboardController.php';
     <title>Student Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/Turtlers-Academy/public/assets/css/student_dashboard.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="/Turtlers-Academy/public/assets/css/course_list.css?v=<?php echo time(); ?>">
 </head>
 
 <body>
     <div class="dashboard-container">
-        <aside class="sidebar">
+        <div class="sidebar">
             <div class="profile-section">
                 <img src="/Turtlers-Academy/public/assets/images/profile.png" class="profile-img">
                 <div class="profile-info">
@@ -27,12 +24,12 @@ include '../../controllers/dashboardController.php';
                 <button class="nav-btn" onclick="ajaxLoadAboutMe()">About Me</button>
                 <button class="nav-btn" onclick="ajaxLoadView('view_bookmarks')">Bookmarked Courses</button>
                 <button class="nav-btn">Forum</button>
-                <button class="nav-btn">Help</button>
+                <a href="../help/help_student.php" class="nav-btn" style="text-decoration: none; width: 100%; box-sizing: border-box; display: block; font-size: 14px;">Help</a>
             </nav>
             <div class="sidebar-footer">
                 <a href="../../auth/logout.php" class="logout-link">Logout</a>
             </div>
-        </aside>
+        </div>
 
         <main class="main-content">
             <?php
@@ -42,8 +39,7 @@ include '../../controllers/dashboardController.php';
 
             <header class="top-nav">
                 <button class="tab-btn active" onclick="selectTab(this); location.reload();">Library</button>
-                <button class="tab-btn" onclick="selectTab(this); ajaxLoadView('view_courses');">Courses</button>
-                <button class="tab-btn" onclick="selectTab(this); ajaxLoadView('view_resources');">Resources</button>
+                <button class="tab-btn" onclick="selectTab(this); ajaxLoadCourseList();">Courses</button>
                 <button class="tab-btn" onclick="selectTab(this)">Quizzes</button>
                 <button class="tab-btn" onclick="selectTab(this)">Results</button>
             </header>

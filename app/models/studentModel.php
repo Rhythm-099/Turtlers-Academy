@@ -1,48 +1,48 @@
 <?php
-function getStudentProfile($conn, $student_name)
+function getStudentProfile($conn, $name)
 {
-    $student_name = mysqli_real_escape_string($conn, $student_name);
-    $query = "SELECT u.*,s.institution,s.age,s.cgpa 
-        FROM users u 
-        LEFT JOIN students s ON u.full_name=s.student_name 
-        WHERE u.username='$student_name' OR u.full_name='$student_name' 
+    $name = mysqli_real_escape_string($conn, $name);
+    $sql = "SELECT * FROM users 
+        WHERE (username='$name' OR full_name='$name') 
+        AND role='student' 
         LIMIT 1";
-    $result = mysqli_query($conn, $query);
-    $data = mysqli_fetch_assoc($result);
+    $res = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($res);
 
-    if ($data) {
+    if ($row) {
         return [
-            "student_name" => $data['full_name'],
-            "institution" => $data['institution'] ?? "Turtlers Academy",
-            "age" => $data['age'] ?? "N/A",
-            "cgpa" => $data['cgpa'] ?? "0.00",
-            "email" => $data['email'],
-            "id" => $data['id']
+            "student_name" => $row['full_name'],
+            "institution" => $row['institution'] ?? "Turtlers Academy",
+            "age" => $row['age'] ?? "0",
+            "cgpa" => $row['cgpa'] ?? "0.00",
+            "email" => $row['email'],
+            "id" => $row['id']
         ];
     }
     return null;
 }
 
-function getEnrolledCoursesForStudent($conn, $student_name)
+function getEnrolledCoursesForStudent($conn, $name)
 {
-    $student_name = mysqli_real_escape_string($conn, $student_name);
-    $user_query = "SELECT id FROM users WHERE username='$student_name' OR full_name='$student_name' LIMIT 1";
-    $user_res = mysqli_query($conn, $user_query);
-    $user = mysqli_fetch_assoc($user_res);
+    $name = mysqli_real_escape_string($conn, $name);
+    $sql1 = "SELECT id FROM users WHERE username='$name' OR full_name='$name' LIMIT 1";
+    $res1 = mysqli_query($conn, $sql1);
+    $user = mysqli_fetch_assoc($res1);
 
-    if (!$user)
+    if (!$user) {
         return [];
-
-    $user_id = $user['id'];
-    $query = "SELECT c.course_name 
-        FROM enrollments e
-        JOIN courses c ON e.course_id=c.id
-        WHERE e.user_id=$user_id AND (e.status='active' OR e.status='' OR e.status IS NULL)";
-
-    $result = mysqli_query($conn, $query);
-    $courses = [];
-    while ($row = mysqli_fetch_assoc($result)) {
-        $courses[] = $row['course_name'];
     }
-    return $courses;
+
+    $uid = $user['id'];
+    $sql2 = "SELECT c.course_name 
+        FROM enrollments e
+        JOIN course c ON e.course_id=c.id
+        WHERE e.user_id=$uid AND (e.status='active' OR e.status='' OR e.status IS NULL)";
+
+    $res2 = mysqli_query($conn, $sql2);
+    $list = array();
+    while ($row = mysqli_fetch_assoc($res2)) {
+        $list[] = $row['course_name'];
+    }
+    return $list;
 }

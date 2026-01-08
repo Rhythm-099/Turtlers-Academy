@@ -1,23 +1,43 @@
 function selectTab(element) {
-    const tabs = document.querySelectorAll('.tab-btn');
-    tabs.forEach(tab => tab.classList.remove('active'));
+    var tabs = document.querySelectorAll('.tab-btn');
+    for (var i = 0; i < tabs.length; i++) {
+        tabs[i].classList.remove('active');
+    }
     element.classList.add('active');
 }
-async function ajaxLoadAboutMe() {
-    const res = await fetch(`/Turtlers-Academy/app/controllers/dashboardController.php?action=aboutme`);
-    const html = await res.text();
-    document.getElementById('main-display').innerHTML = html;
+
+function ajaxLoadCourseList() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("main-display").innerHTML = this.responseText;
+        }
+    };
+    xhttp.open("GET", "/Turtlers-Academy/app/views/course_list/course_list.php", true);
+    xhttp.send();
 }
-async function ajaxLoadView(action) {
-    const res = await fetch(`/Turtlers-Academy/app/controllers/dashboardController.php?action=${action}`);
-    const html = await res.text();
-    document.getElementById('main-display').innerHTML = html;
-    if (action === 'view_bookmarks' && typeof renderBookmarksPage === 'function') {
-        renderBookmarksPage();
-    }
+
+function ajaxLoadAboutMe() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("main-display").innerHTML = this.responseText;
+        }
+    };
+    xhttp.open("GET", "/Turtlers-Academy/app/controllers/dashboardController.php?action=aboutme", true);
+    xhttp.send();
 }
-async function ajaxLoadDetail(id) {
-    const res = await fetch(`/Turtlers-Academy/app/controllers/dashboardController.php?id=${id}`);
-    const html = await res.text();
-    document.getElementById('main-display').innerHTML = html;
+
+function ajaxLoadView(act) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("main-display").innerHTML = this.responseText;
+            if (act === 'view_bookmarks' && typeof renderBookmarksPage === 'function') {
+                renderBookmarksPage();
+            }
+        }
+    };
+    xhttp.open("GET", "/Turtlers-Academy/app/controllers/dashboardController.php?action=" + act, true);
+    xhttp.send();
 }

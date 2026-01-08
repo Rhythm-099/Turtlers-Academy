@@ -15,7 +15,7 @@ body {
 
 .sidebar {
     width: 260px;
-    background: #1a2a3a;
+    background: #2a2a2a;
     color: white;
     padding: 30px 20px;
     height: 100vh;
@@ -31,7 +31,7 @@ body {
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    border: 2px solid #3a6cf4;
+    border: 2px solid #ff7b00;
     margin-bottom: 10px;
 }
 
@@ -51,6 +51,7 @@ body {
     text-align: left;
     cursor: pointer;
     border-radius: 6px;
+    font-size: 14px;
 }
 
 .main-content {
@@ -78,8 +79,8 @@ body {
 }
 
 .tab-btn.active {
-    color: #3a6cf4;
-    border-bottom: 3px solid #3a6cf4;
+    color: #ff7b00;
+    border-bottom: 3px solid #ff7b00;
     font-weight: 600;
 }
 
@@ -107,7 +108,7 @@ body {
 
 .view-btn {
     width: 100%;
-    background: #3a6cf4;
+    background: #ff7b00;
     color: white;
     border: none;
     padding: 10px;
@@ -117,5 +118,5 @@ body {
 }
 
 .view-btn:hover {
-    background: #2255cc;
+    background: #e66a00;
 }
