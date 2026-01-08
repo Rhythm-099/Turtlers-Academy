@@ -19,7 +19,7 @@
 }
 
 .bookmark-btn {
-    background: #3a6cf4;
+    background: #ff7b00;
     color: white;
     border: none;
     padding: 10px 15px;
@@ -29,7 +29,7 @@
 }
 
 .bookmark-btn:hover {
-    background: #2a52be;
+    background: #e66a00;
 }
 
 #bookmarkList li {
