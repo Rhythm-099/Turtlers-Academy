@@ -2,7 +2,7 @@
 
 <head>
     <title>Background color toggler</title>
-    <link rel="stylesheet" href="/Turtlers-Academy/public/assets/css/bgtoggler.css">
+    <link rel="stylesheet" href="../../../public/assets/css/bgtoggler.css">
 </head>
 
 <body>

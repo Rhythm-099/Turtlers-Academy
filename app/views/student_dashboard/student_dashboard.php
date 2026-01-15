@@ -10,14 +10,14 @@ include '../../controllers/dashboardController.php';
     <meta charset="UTF-8">
     <title>Student Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/Turtlers-Academy/public/assets/css/student_dashboard.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="../../../public/assets/css/student_dashboard.css?v=<?php echo time(); ?>">
 </head>
 
 <body>
     <div class="dashboard-container">
         <aside class="sidebar">
             <div class="profile-section">
-                <img src="/Turtlers-Academy/public/assets/images/profile.png" class="profile-img">
+                <img src="../../../public/assets/images/profile.png" class="profile-img">
                 <div class="profile-info">
                     <h3><?php echo $_SESSION['student_name']; ?></h3>
                     <p>Student</p>
@@ -53,8 +53,8 @@ include '../../controllers/dashboardController.php';
         </main>
     </div>
 
-    <script src="/Turtlers-Academy/public/assets/js/student_dashboard.js?v=<?php echo time(); ?>"></script>
-    <script src="/Turtlers-Academy/public/assets/js/bookmark.js?v=<?php echo time(); ?>"></script>
+    <script src="../../../public/assets/js/student_dashboard.js?v=<?php echo time(); ?>"></script>
+    <script src="../../../public/assets/js/bookmark.js?v=<?php echo time(); ?>"></script>
     <?php include "../bgtoggler/bgtoggler.php" ?>
 </body>
 

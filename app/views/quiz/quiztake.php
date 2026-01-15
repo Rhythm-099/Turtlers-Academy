@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="assets/css/quiz.css">
-<script src="/Turtlers-Academy/public/assets/js/quiz.js" defer></script>
+<script src="../../../public/assets/js/quiz.js" defer></script>
 
 
 <h2>Taking: <?= htmlspecialchars($quiz['title']) ?></h2>

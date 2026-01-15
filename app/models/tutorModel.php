@@ -89,7 +89,7 @@ function getAllStudentsWithCourses($conn)
 
 function getAllTutors($conn)
 {
-    $sql = "SELECT id, fullname, email FROM users LIMIT 4";
+    $sql = "SELECT id, full_name, email FROM users LIMIT 4";
     $res = mysqli_query($conn, $sql);
 
     $tutors = [];

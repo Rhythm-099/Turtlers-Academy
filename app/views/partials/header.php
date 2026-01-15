@@ -103,17 +103,17 @@
         <div class="bar">
 
             <div>
-                <a href="/Turtlers-Academy/public/index.php" style="text-decoration:none;">
+                <a href="index.php" style="text-decoration:none;">
                     <span class="brand">&lt;Turtlers<span class="academy">Academy</span></span>
                 </a>
             </div>
 
             <nav class="main-nav">
-                <a href="/Turtlers-Academy/public/index.php">Home</a>
-                <a href="/Turtlers-Academy/public/course.php">Courses</a>
-                <a href="/Turtlers-Academy/public/forum.php">Forum</a>
-                <a href="/Turtlers-Academy/public/quiz.php">Quizzes</a>
-                <a href="/Turtlers-Academy/public/results.php">Results</a>
+                <a href="index.php">Home</a>
+                <a href="course.php">Courses</a>
+                <a href="forum.php">Forum</a>
+                <a href="quiz.php">Quizzes</a>
+                <a href="results.php">Results</a>
                 <a href="#about">About</a>
             </nav>
 

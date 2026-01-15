@@ -44,7 +44,7 @@
     <div class="container">
         <h1>You are unauthorized to access</h1>
         <p>Your account was not found in our records or you do not have permission to view this page.</p>
-        <a href="/Turtlers-Academy/public/login.html" class="btn-home">Go to Login</a>
+        <a href="../../../public/login.html" class="btn-home">Go to Login</a>
     </div>
 </body>
 </html>
